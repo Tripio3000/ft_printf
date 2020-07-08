@@ -127,14 +127,15 @@ int main()
 {
     float a = 1.51111;
 
-    int i = ft_printf("%.20f", 0.51111);
+    int i = ft_printf("%.7s.", "hello");
  	printf("\ni = %d\n", i);
-    printf("%.20f", a);
+    int b = printf("%.7s.", "hello");
+    printf("\nb = %d\n", b);
 
 
 //    double x = 321.123;
 //    t_sun eeei;
-//
+//git add
 //    eeei.f = x;
 //    printf("%d_ %d_ %d  %.32f\n", eeei.v.sign, eeei.v.exp, eeei.v.mant, eeei.f);
 //    for (int c = 0; c < 52; c++)
