@@ -46,6 +46,7 @@ typedef struct				s_struct{
 	char                    *sp;
 	int                     round;
     int						f_zero;
+    int                     sign_bit;
 }   						t_struct;
 
 typedef struct				s_str

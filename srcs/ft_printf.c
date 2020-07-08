@@ -129,15 +129,19 @@ int main()
 {
     float a = 1.51111;
 
+    int i = ft_printf("%.10f", 23.000000041);
+ 	printf("\ni = %d\n", i);
+    int b = printf("%.10f", 23.000000041);
+    printf("\nb = %d\n", b);
+    return 0;
+}
+
+
 //    int i = ft_printf("%.7s.", "hello");
 // 	printf("\ni = %d\n", i);
 //    int b = printf("%.7s.", "hello");
 //    printf("\nb = %d\n", b);
-    int i = ft_printf("%#15.0f", -1.3698549);
- 	printf("\ni = %d\n", i);
-    printf("%7.6d\n", 0);
-
-
+//
 //    double x = 321.123;
 //    t_sun eeei;
 //git add
@@ -146,6 +150,5 @@ int main()
 //    for (int c = 0; c < 52; c++)
 //        ft_putchar(eeei.v.mant & (1L << c) ? '1' : '0');
 //    printf("\n");
+//
 
- 	return 0;
-}

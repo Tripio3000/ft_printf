@@ -7,6 +7,8 @@ void    ft_out(char *fp, char *sp, t_struct *st)
 
     rounding(sp, st);
     i = 0;
+    if (st->sign_bit == 1)
+        st->schet = st->schet + re_putchar('-');
     if (st->f_zero == 0)
     {
         while (st->fp[i] == '0')
@@ -25,7 +27,12 @@ void    ft_out(char *fp, char *sp, t_struct *st)
     j = 0;
     while (j < st->round && j < i)
     {
-        ft_putchar(st->sp[j]);
+        st->schet = st->schet + re_putchar(st->sp[j]);
+        j++;
+    }
+    while (j < st->round)
+    {
+        st->schet = st->schet + re_putchar('0');
         j++;
     }
 }

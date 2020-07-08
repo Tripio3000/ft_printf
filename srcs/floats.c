@@ -243,7 +243,7 @@ void    *get_zero(char *arr)
     char *newptr;
     int i;
 
-    newptr = ft_memalloc(ft_strlen(arr) + 2);
+    newptr = ft_memalloc(ft_strlen(arr) + 3);
     i = 0;
     while (arr[i] != '\0')
     {
@@ -351,29 +351,28 @@ int exp_shift(t_sun eeei)
 
 int     check_zero_inf(t_sun eeei, t_struct *st)
 {
-//    int round;
     int i;
 
     i = 0;
-    if (st->f_pres == 1)        //надо записать round в структуру
-        st->round = st->wdth_pres;  //и удалить такую же операцию  в roundation
-    else
-        st->round = 6;
     if (eeei.v.exp == 0 && eeei.v.mant == 0)
     {
-        ft_putchar('0');
-        ft_putchar('.');
+        if (st->sign_bit == 1)
+            st->schet = st->schet + re_putchar('-');
+        st->schet = st->schet + re_putchar('0');
+        if (st->round != 0 || st->f_resh != 0)
+            st->schet = st->schet + re_putchar('.');
         while (i < st->round)
         {
-            ft_putchar('0');
+            st->schet = st->schet + re_putchar('0');
             i++;
         }
         return (1);
     }
-
     if (eeei.v.exp == 2047)
     {
-        ft_putstr("inf");
+        if (st->sign_bit == 1)
+            st->schet = st->schet + re_putchar('-');
+        st->schet = st->schet + re_putstr("inf");
         return (1);
     }
     return (0);
@@ -399,6 +398,11 @@ void    after_point(t_sun eeei, t_struct *st)
     {
         count++;
         eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
+        if (c > SIZE_M)
+        {
+            arr = multiplication(arr, 5, count);
+            continue;
+        }
         arr = multiplication(arr, 5, count);
         if (c == SIZE_M)
             st->sp = sum_reverse(st->sp, arr, st);
@@ -417,6 +421,11 @@ void    init_chars(t_struct *st)
     st->fp = ft_memalloc(st->size);
     st->fp = ft_realloc(st->fp, st->size);
     st->f_zero = 0;
+    st->sign_bit = 0;
+    if (st->f_pres == 1)        //надо записать round в структуру
+        st->round = st->wdth_pres;  //и удалить такую же операцию  в roundation
+    else
+        st->round = 6;
 }
 
 void    bit_parcer(double f, t_struct *st)
@@ -428,10 +437,12 @@ void    bit_parcer(double f, t_struct *st)
 
     st->size = 8;
     eeei.f = f;
+    init_chars(st);
+    if (eeei.v.sign == 1)
+        st->sign_bit = 1;
     c = check_zero_inf(eeei, st);
     if (c == 1)
         return;
-    init_chars(st);
     arr = ft_memalloc(1);
     arr[0] = '1';
     arr[1] = '\0';
