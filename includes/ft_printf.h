@@ -97,5 +97,8 @@ void						init(t_struct *st);
 void						pres_str(t_struct *st);
 void						pres_num(t_struct *st);
 void                        bit_parcer(double f, t_struct *st);
+void    rounding(char *sp, t_struct *st);
+void    ft_out(char *fp, char *sp, t_struct *st);
+void    *sum_reverse(char *ans, char *tmp);
 
 #endif

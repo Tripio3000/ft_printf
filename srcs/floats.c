@@ -26,6 +26,7 @@ void    *ft_cpy(char *newptr, char *ptr, int size)
     int i;
     int j;
 
+//    write(1, "ok", 2);
     i = 0;
     j = 0;
     while (ptr[i] != '\0')
@@ -49,6 +50,7 @@ void	*ft_realloc(void *ptr, size_t size)
 //    if (size == 64)
 //        printf("1\n");
 //    printf("realloc\n");
+//    write(1, "ok", 2);
     if (!size && ptr)
     {
         if (!(newptr = (char *)malloc(1)))
@@ -56,31 +58,16 @@ void	*ft_realloc(void *ptr, size_t size)
         ft_memdel(&ptr);
         return (newptr);
     }
-    if (!(newptr = (char *)malloc(size)))
+    if (!(newptr = (char *)malloc(size + 1)))
         return (NULL);
     if (ptr)
     {
         ft_cpy(newptr, ptr, size);
         //free(ptr);
-        //ft_memdel(&ptr);
+        ft_memdel(&ptr);
     }
 //    printf("newptr:%s\n", newptr);
     return (newptr);
-}
-
-int two_degree(int s)
-{
-    int i;
-    unsigned long long a;
-
-    a = 1;
-    i = 0;
-    while (i < s)
-    {
-        a *= 2;
-        i++;
-    }
-    return (a);
 }
 
 void    *get_char(char *arr)
@@ -92,7 +79,7 @@ void    *get_char(char *arr)
 
     j = ft_strlen(arr);
     i = 0;
-    mas = ft_memalloc(ft_strlen(arr));
+    mas = ft_memalloc(ft_strlen(arr) + 1);
     while (arr[i] != '\0')
     {
         mas[i] = arr[j - 1];
@@ -108,24 +95,25 @@ void    *sum_char(char *ans, char *tmp)
     int i;
     int j;
     char symb;
-    char *str;
+//    char *str;
     char *newptr;
+//    write(1, "ok", 2);
 
-    str = ft_memalloc(ft_strlen(tmp));
-    ft_strcpy(str, tmp);
+//    str = ft_memalloc(ft_strlen(tmp));
+//    ft_strcpy(str, tmp);
     i = ft_strlen(ans);
-    j = ft_strlen(str);
+    j = ft_strlen(tmp);
     while ((i - 1) == j || j > i)
     {
         ans = ft_realloc(ans, (i*2));
         i = ft_strlen(ans);
-        j = ft_strlen(str);
+        j = ft_strlen(tmp);
     }
 
     i = 0;
-    while (str[i] != '\0' && ans[i] != '\0')
+    while (tmp[i] != '\0' && ans[i] != '\0')
     {
-        symb = str[i];
+        symb = tmp[i];
         ans[i] += symb - '0';
         if (ans[i] > '9')
         {
@@ -135,7 +123,10 @@ void    *sum_char(char *ans, char *tmp)
                 ft_strcpy(newptr, ans);
                 newptr[i] -= 10;
                 newptr[i + 1] = 49;
-                free(ans);
+                newptr[i + 2] = '\0';
+//                ft_memdel(&str);
+                ft_memdel(&ans);
+//                write(1, "end", 3);
                 return (newptr);
             }
             else
@@ -146,7 +137,48 @@ void    *sum_char(char *ans, char *tmp)
         }
         i++;
     }
+//    ft_memdel(&str);
+//    write(1, "en", 3);
     return (ans);
+}
+
+void    *two_degree(char *arr)
+{
+    char *tm;
+    char *newptr;
+    int i;
+
+    tm = ft_memalloc(ft_strlen(arr));
+    ft_strcpy(tm, arr);
+    i = 0;
+    while (arr[i] != '\0')
+    {
+        arr[i] += tm[i] - '0';
+        i++;
+    }
+    i = 0;
+    while (arr[i] != '\0')
+    {
+        if (arr[i + 1] == '\0' && arr[i] > '9')
+        {
+            newptr = ft_memalloc(i + 3);
+            ft_strcpy(newptr, arr);
+            newptr[i] -= 10;
+            newptr[i + 1] = 49;
+            newptr[i + 2] = '\0';
+//            ft_memdel(&arr);
+            ft_memdel(&tm);
+            return (newptr);
+        }
+        if (arr[i] > '9')
+        {
+            arr[i] -= 10;
+            arr[i + 1]++;
+        }
+        i++;
+    }
+    ft_memdel(&tm);
+    return (arr);
 }
 
 void    *sum_reverse(char *ans, char *tmp)
@@ -245,53 +277,53 @@ void    *multiplication(char *arr, int num, int deg)
     return (newptr);
 }
 
-void    rounding(char *sp, t_struct *st) //округление
-{
-    int i;
-    int j;
-    int round;
-    char *arr;
+//void    rounding(char *sp, t_struct *st) //округление
+//{
+//    int i;
+//    int j;
+//    int round;
+//    char *arr;
+//
+//    j = 0;
+//    i = ft_strlen(sp);
+//    if (st->f_pres == 1)
+//        round = st->wdth_pres;
+//    else
+//        round = 6;
+//    if (round < i && sp[round] >= '5')
+//    {
+//        arr = ft_memalloc(round);
+//        arr[j] = '1';
+//        while (j < round - 1)
+//        {
+//            j++;
+//            arr[j] = '0';
+//        }
+//        sp = sum_reverse(sp, arr);
+//    }
+//    j = 0;
+//    while (j < round && j < i)
+//    {
+//        ft_putchar(sp[j]);
+//        j++;
+//    }
+//}
 
-    j = 0;
-    i = ft_strlen(sp);
-    if (st->f_pres == 1)
-        round = st->wdth_pres;
-    else
-        round = 6;
-    if (round < i && sp[round] >= '5')
-    {
-        arr = ft_memalloc(round);
-        arr[j] = '1';
-        while (j < round - 1)
-        {
-            j++;
-            arr[j] = '0';
-        }
-        sp = sum_reverse(sp, arr);
-    }
-    j = 0;
-    while (j < round && j < i)
-    {
-        ft_putchar(sp[j]);
-        j++;
-    }
-}
-
-void    ft_out(char *fp, char *sp, t_struct *st)
-{
-    int i;
-
-    i = 0;
-    while (fp[i] == '0')
-        i++;
-    while (fp[i] != '\0')
-    {
-        ft_putchar(fp[i]);
-        i++;
-    }
-    ft_putchar('.');
-    rounding(sp, st);
-}
+//void    ft_out(char *fp, char *sp, t_struct *st)
+//{
+//    int i;
+//
+//    i = 0;
+//    while (fp[i] == '0')
+//        i++;
+//    while (fp[i] != '\0')
+//    {
+//        ft_putchar(fp[i]);
+//        i++;
+//    }
+//    ft_putchar('.');
+//    rounding(sp, st);
+//}
 
 int exp_shift(t_sun eeei)
 {
@@ -323,7 +355,7 @@ int     check_zero_inf(t_sun eeei, t_struct *st)
         return (1);
     }
 
-    if (eeei.v.exp == 255)
+    if (eeei.v.exp == 2047)
     {
         ft_putstr("inf");
         return (1);
@@ -383,6 +415,7 @@ void    bit_parcer(double f, t_struct *st)
     init_chars(st);
     arr = ft_memalloc(1);
     arr[0] = '1';
+    arr[1] = '\0';
     st->shift = exp_shift(eeei);
 
 //    printf("%d_ %d_ %d  %.32f\n", eeei.v.sign, eeei.v.exp, eeei.v.mant, eeei.f);
@@ -396,27 +429,30 @@ void    bit_parcer(double f, t_struct *st)
         if (c == (SIZE_M - st->shift))
         {
             eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
-            if (b == 1)
+            if (b == 1 && c > 0)
                 st->fp = sum_char(st->fp, arr);
             continue ;
         }
         if (c < 0)
         {
-            arr = sum_char(arr, arr);
+            arr = two_degree(arr);
             continue ;
         }
         eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
-        arr = sum_char(arr, arr);
+        arr = two_degree(arr);
         if (b == 1)
             st->fp = sum_char(st->fp, arr);
     }
     if (st->shift != 0)
-        arr = sum_char(arr, arr);
+        arr = two_degree(arr);
     st->fp = sum_char(st->fp, arr);
+
     st->fp = get_char(st->fp);
     ft_memdel(&arr);
     after_point(eeei, st);
+
     ft_out(st->fp, st->sp, st);
+
 }
 
 
@@ -445,3 +481,27 @@ void    bit_parcer(double f, t_struct *st)
 //        }
 //    }
 //}
+
+
+//for (c = (SIZE_M - st->shift); c < SIZE_M; c++)
+//{
+//if (c == (SIZE_M - st->shift))
+//{
+//eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
+//if (b == 1)
+//st->fp = sum_char(st->fp, arr);
+//continue ;
+//}
+//if (c < 0)
+//{
+//arr = sum_char(arr, arr);
+//continue ;
+//}
+//eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
+//arr = sum_char(arr, arr);
+//if (b == 1)
+//st->fp = sum_char(st->fp, arr);
+//}
+//if (st->shift != 0)
+//arr = sum_char(arr, arr);
+//st->fp = sum_char(st->fp, arr);

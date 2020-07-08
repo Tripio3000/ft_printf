@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /Users/efleta/Desktop/2printf/cmake-build-debug
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/ft_printf.dir/all
+all: CMakeFiles/2printf.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/ft_printf.dir/clean
+clean: CMakeFiles/2printf.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/ft_printf.dir
+# Target rules for target CMakeFiles/2printf.dir
 
 # All Build rule for target.
-CMakeFiles/ft_printf.dir/all:
-	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/depend
-	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/efleta/Desktop/2printf/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81 "Built target ft_printf"
-.PHONY : CMakeFiles/ft_printf.dir/all
+CMakeFiles/2printf.dir/all:
+	$(MAKE) -f CMakeFiles/2printf.dir/build.make CMakeFiles/2printf.dir/depend
+	$(MAKE) -f CMakeFiles/2printf.dir/build.make CMakeFiles/2printf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/efleta/Desktop/2printf/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82 "Built target 2printf"
+.PHONY : CMakeFiles/2printf.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ft_printf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/efleta/Desktop/2printf/cmake-build-debug/CMakeFiles 81
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ft_printf.dir/all
+CMakeFiles/2printf.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/efleta/Desktop/2printf/cmake-build-debug/CMakeFiles 82
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/2printf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/efleta/Desktop/2printf/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/ft_printf.dir/rule
+.PHONY : CMakeFiles/2printf.dir/rule
 
 # Convenience name for target.
-ft_printf: CMakeFiles/ft_printf.dir/rule
+2printf: CMakeFiles/2printf.dir/rule
 
-.PHONY : ft_printf
+.PHONY : 2printf
 
 # clean rule for target.
-CMakeFiles/ft_printf.dir/clean:
-	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/clean
-.PHONY : CMakeFiles/ft_printf.dir/clean
+CMakeFiles/2printf.dir/clean:
+	$(MAKE) -f CMakeFiles/2printf.dir/build.make CMakeFiles/2printf.dir/clean
+.PHONY : CMakeFiles/2printf.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
