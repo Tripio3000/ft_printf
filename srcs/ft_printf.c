@@ -129,13 +129,13 @@ int main()
 {
     float a = 1.51111;
 
-    int i = ft_printf("%.7s.", "hello");
- 	printf("\ni = %d\n", i);
-    int b = printf("%.7s.", "hello");
-    printf("\nb = %d\n", b);
-//    int i = ft_printf("%f", 9.9999);
+//    int i = ft_printf("%.7s.", "hello");
 // 	printf("\ni = %d\n", i);
-//    printf("%f\n", 9.9999);
+//    int b = printf("%.7s.", "hello");
+//    printf("\nb = %d\n", b);
+    int i = ft_printf("%#15.0f", -1.3698549);
+ 	printf("\ni = %d\n", i);
+    printf("%7.6d\n", 0);
 
 
 //    double x = 321.123;

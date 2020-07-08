@@ -181,7 +181,21 @@ void    *two_degree(char *arr)
     return (arr);
 }
 
-void    *sum_reverse(char *ans, char *tmp)
+void    rounding_fp(t_struct *st)
+{
+    char *arr;
+
+    arr = ft_memalloc(2);
+    arr[0] = '1';
+    arr[1] = '\0';
+    st->fp = get_char(st->fp);
+    sum_char(st->fp, arr);
+    st->fp = get_char(st->fp);
+    st->f_zero = 0;
+    st->sp[0] -= 10;
+}
+
+void    *sum_reverse(char *ans, char *tmp, t_struct *st)
 {
     int i;
     int j;
@@ -219,6 +233,8 @@ void    *sum_reverse(char *ans, char *tmp)
         i++;
         j++;
     }
+    if (k == 0 && ans[k] > '9')
+        rounding_fp(st);
     return (ans);
 }
 
@@ -335,19 +351,19 @@ int exp_shift(t_sun eeei)
 
 int     check_zero_inf(t_sun eeei, t_struct *st)
 {
-    int round;
+//    int round;
     int i;
 
     i = 0;
     if (st->f_pres == 1)        //надо записать round в структуру
-        round = st->wdth_pres;  //и удалить такую же операцию  в roundation
+        st->round = st->wdth_pres;  //и удалить такую же операцию  в roundation
     else
-        round = 6;
+        st->round = 6;
     if (eeei.v.exp == 0 && eeei.v.mant == 0)
     {
         ft_putchar('0');
         ft_putchar('.');
-        while (i < round)
+        while (i < st->round)
         {
             ft_putchar('0');
             i++;
@@ -384,9 +400,11 @@ void    after_point(t_sun eeei, t_struct *st)
         count++;
         eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
         arr = multiplication(arr, 5, count);
+        if (c == SIZE_M)
+            st->sp = sum_reverse(st->sp, arr, st);
         if (b == 1)
         {
-            st->sp = sum_reverse(st->sp, arr);
+            st->sp = sum_reverse(st->sp, arr, st);
 //            printf("sp:%s arr:%s c:%d %d %d\n", sp, arr, c, ft_strlen(sp), ft_strlen(arr));
         }
     }
@@ -398,6 +416,7 @@ void    init_chars(t_struct *st)
     st->sp = ft_realloc(st->sp, st->size);
     st->fp = ft_memalloc(st->size);
     st->fp = ft_realloc(st->fp, st->size);
+    st->f_zero = 0;
 }
 
 void    bit_parcer(double f, t_struct *st)
@@ -417,6 +436,36 @@ void    bit_parcer(double f, t_struct *st)
     arr[0] = '1';
     arr[1] = '\0';
     st->shift = exp_shift(eeei);
+    if (st->shift >= 0)
+    {
+        for (c = (SIZE_M - st->shift); c < SIZE_M; c++)
+        {
+            if (c == (SIZE_M - st->shift))
+            {
+                eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
+                if (b == 1 && c > 0)
+                    st->fp = sum_char(st->fp, arr);
+                continue ;
+            }
+            if (c < 0)
+            {
+                arr = two_degree(arr);
+                continue ;
+            }
+            eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
+            arr = two_degree(arr);
+            if (b == 1)
+                st->fp = sum_char(st->fp, arr);
+        }
+        if (st->shift != 0)
+            arr = two_degree(arr);
+        st->fp = sum_char(st->fp, arr);
+
+        st->fp = get_char(st->fp);
+        ft_memdel(&arr);
+    }
+    else
+        st->f_zero = 1;
 
 //    printf("%d_ %d_ %d  %.32f\n", eeei.v.sign, eeei.v.exp, eeei.v.mant, eeei.f);
 //    printf("shift:%d\n", st->shift);
@@ -424,31 +473,7 @@ void    bit_parcer(double f, t_struct *st)
 //        ft_putchar(eeei.v.mant & (1L << c) ? '1' : '0');
 //    printf("\n");
 
-    for (c = (SIZE_M - st->shift); c < SIZE_M; c++)
-    {
-        if (c == (SIZE_M - st->shift))
-        {
-            eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
-            if (b == 1 && c > 0)
-                st->fp = sum_char(st->fp, arr);
-            continue ;
-        }
-        if (c < 0)
-        {
-            arr = two_degree(arr);
-            continue ;
-        }
-        eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
-        arr = two_degree(arr);
-        if (b == 1)
-            st->fp = sum_char(st->fp, arr);
-    }
-    if (st->shift != 0)
-        arr = two_degree(arr);
-    st->fp = sum_char(st->fp, arr);
 
-    st->fp = get_char(st->fp);
-    ft_memdel(&arr);
     after_point(eeei, st);
 
     ft_out(st->fp, st->sp, st);

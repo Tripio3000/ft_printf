@@ -32,7 +32,6 @@ typedef struct				s_struct{
 	int						f_nul;
 	int						f_pres;
 	int						f_wdht;
-	int						f_zvezd;
 	int						wdht; //ширина для длинны типа 0 или пробел
 	int						schet;// для ретерна
 	int						nul;
@@ -45,6 +44,8 @@ typedef struct				s_struct{
 	int                     shift;
 	char                    *fp;
 	char                    *sp;
+	int                     round;
+    int						f_zero;
 }   						t_struct;
 
 typedef struct				s_str
@@ -99,6 +100,7 @@ void						pres_num(t_struct *st);
 void                        bit_parcer(double f, t_struct *st);
 void    rounding(char *sp, t_struct *st);
 void    ft_out(char *fp, char *sp, t_struct *st);
-void    *sum_reverse(char *ans, char *tmp);
+void    *sum_reverse(char *ans, char *tmp, t_struct *st);
+void    rounding_fp(t_struct *st);
 
 #endif
