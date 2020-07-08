@@ -26,6 +26,8 @@ void	ft_printf_sec(char *format, t_struct *st, va_list ap) //19
     {
         double f;
         f = va_arg(ap, double);
+        st->f = 1;
+        st->i++;
         bit_parcer(f, st);
     }
 }
@@ -127,9 +129,9 @@ int main()
 {
     float a = 1.51111;
 
-    int i = ft_printf("%.20f", 0.51111);
+    int i = ft_printf("%f", 9.9999);
  	printf("\ni = %d\n", i);
-    printf("%.20f", a);
+    printf("%f\n", 9.9999);
 
 
 //    double x = 321.123;

@@ -19,7 +19,7 @@ void minus_print(char *format, t_struct *st)
 {
 	if (st->f_plus == 1)
 		plus_print(st);
-	if (st->f_pres == 1)
+	if (st->f_pres == 1 && st->f != 1)
 		pres_print(st);
 	if (st->f_nul > 0 && st->f_minus != 1)
 		null_print(st);
@@ -49,7 +49,7 @@ void print_else(char *format, t_struct *st)
 		plus_print(st);
 	if ((st->f_nul > 0 && st->f_minus != 1) && st->f_resh != 1)
 		null_print(st);
-	if (st->f_pres == 1)
+	if (st->f_pres == 1 && st->f != 1)
 		pres_print(st);
 	if (st->f_resh == 1)
 	{
