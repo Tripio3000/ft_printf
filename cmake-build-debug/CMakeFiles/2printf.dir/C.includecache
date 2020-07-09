@@ -26,6 +26,10 @@ float.h
 string.h
 -
 
+/Users/cseabass/ft_printf/srcs/float_print.c
+../includes/ft_printf.h
+/Users/cseabass/ft_printf/includes/ft_printf.h
+
 /Users/cseabass/ft_printf/srcs/ft_printf.c
 ../includes/ft_printf.h
 /Users/cseabass/ft_printf/includes/ft_printf.h

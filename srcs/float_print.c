@@ -37,6 +37,20 @@ void    ft_out(char *fp, char *sp, t_struct *st)
     }
 }
 
+void 	zero_round(t_struct *st)
+{
+	int i;
+
+	i = 0;
+	while (st->fp[i] != '\0')
+		i++;
+	i--;
+	if ((st->fp[i] == '1' || st->fp[i] == '3' ||
+	st->fp[i] == '5' || st->fp[i] == '7' ||
+	st->fp[i] == '9') && st->sp[st->round] >= '5')
+		rounding_fp(st);
+}
+
 void    rounding(char *sp, t_struct *st) //округление
 {
     int i;
@@ -50,10 +64,12 @@ void    rounding(char *sp, t_struct *st) //округление
 //        round = st->wdth_pres;
 //    else
 //        round = 6;
-    if (st->round == 0 && sp[st->round] == '5' && st->sign_bit == 1)
-        st->neg_round = 1;
-    if (st->round == 0 && sp[st->round] >= '5' && st->neg_round == 0)
-        rounding_fp(st);
+//    if (st->round == 0 && sp[st->round] == '5' && st->sign_bit == 1)
+//        st->neg_round = 1;
+//    if (st->round == 0 && sp[st->round] >= '5' && st->neg_round == 0)
+//        rounding_fp(st);
+	if (st->round == 0)
+		zero_round(st);
     if (st->round < i && sp[st->round] >= '5')
     {
         arr = ft_memalloc(st->round + 1);
