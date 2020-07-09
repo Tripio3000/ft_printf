@@ -50,18 +50,20 @@ void    rounding(char *sp, t_struct *st) //округление
 //        round = st->wdth_pres;
 //    else
 //        round = 6;
-    if (st->round == 0 && sp[st->round] >= '5')
+    if (st->round == 0 && sp[st->round] == '5' && st->sign_bit == 1)
+        st->neg_round = 1;
+    if (st->round == 0 && sp[st->round] >= '5' && st->neg_round == 0)
         rounding_fp(st);
     if (st->round < i && sp[st->round] >= '5')
     {
-        arr = ft_memalloc(st->round);
+        arr = ft_memalloc(st->round + 1);
         arr[j] = '1';
         while (j < st->round - 1)
         {
             j++;
             arr[j] = '0';
         }
-        sp = sum_reverse(sp, arr, st);
+        sum_reverse(sp, arr, st);
     }
 //    j = 0;
 //    while (j < st->round && j < i)

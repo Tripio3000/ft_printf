@@ -6,6 +6,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <float.h>
 # include "../libft/libft.h"
 
 
@@ -47,6 +48,7 @@ typedef struct				s_struct{
 	int                     round;
     int						f_zero;
     int                     sign_bit;
+    int                     neg_round;
 }   						t_struct;
 
 typedef struct				s_str
@@ -101,7 +103,7 @@ void						pres_num(t_struct *st);
 void                        bit_parcer(double f, t_struct *st);
 void    rounding(char *sp, t_struct *st);
 void    ft_out(char *fp, char *sp, t_struct *st);
-void    *sum_reverse(char *ans, char *tmp, t_struct *st);
+void    sum_reverse(char *ans, char *tmp, t_struct *st);
 void    rounding_fp(t_struct *st);
 
 #endif

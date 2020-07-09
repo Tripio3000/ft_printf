@@ -17,6 +17,8 @@ unistd.h
 -
 stdlib.h
 -
+float.h
+-
 ../libft/libft.h
 /Users/cseabass/ft_printf/libft/libft.h
 
@@ -24,7 +26,7 @@ stdlib.h
 string.h
 -
 
-/Users/cseabass/ft_printf/srcs/floats.c
+/Users/cseabass/ft_printf/srcs/ft_printf.c
 ../includes/ft_printf.h
 /Users/cseabass/ft_printf/includes/ft_printf.h
 

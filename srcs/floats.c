@@ -86,6 +86,7 @@ void    *get_char(char *arr)
         i++;
         j--;
     }
+    mas[i] = '\0';
 //    ft_memdel(&arr);
     return (mas);
 }
@@ -195,7 +196,7 @@ void    rounding_fp(t_struct *st)
     st->sp[0] -= 10;
 }
 
-void    *sum_reverse(char *ans, char *tmp, t_struct *st)
+void    sum_reverse(char *ans, char *tmp, t_struct *st)
 {
     int i;
     int j;
@@ -203,14 +204,14 @@ void    *sum_reverse(char *ans, char *tmp, t_struct *st)
     char symb;
     char *arr;
 
-    i = ft_strlen(ans);
+    i = ft_strlen(st->sp);
     j = ft_strlen(tmp);
     arr = ft_memalloc(j);
     arr = get_char(tmp);
     while ((i - 1) == j || j > i)
     {
-        ans = ft_realloc(ans, (i*2));
-        i = ft_strlen(ans);
+        st->sp = ft_realloc(st->sp, (i*2));
+        i = ft_strlen(st->sp);
     }
 //    while (i > j && ans[i - 1] == '0')
 //        i--;
@@ -219,23 +220,23 @@ void    *sum_reverse(char *ans, char *tmp, t_struct *st)
     while (arr[j] != '\0')
     {
         symb = arr[j];
-        ans[i] += symb - '0';
+        st->sp[i] += symb - '0';
         k = i;
         while (k > 0)
         {
-            if (ans[k] > '9')
+            if (st->sp[k] > '9')
             {
-                ans[k - 1]++;
-                ans[k] -= 10;
+                st->sp[k - 1]++;
+                st->sp[k] -= 10;
             }
             k--;
         }
         i++;
         j++;
     }
-    if (k == 0 && ans[k] > '9')
+    if (k == 0 && st->sp[k] > '9')
         rounding_fp(st);
-    return (ans);
+//    return (st->sp);
 }
 
 void    *get_zero(char *arr)
@@ -252,7 +253,8 @@ void    *get_zero(char *arr)
     }
     newptr[i] = '0';
     newptr[i + 1] = '\0';
-    ft_memdel(&arr);
+//    void *arra = (void*)arr;
+//    ft_memdel(&arra);
     return (newptr);
 }
 
@@ -264,7 +266,7 @@ void    *multiplication(char *arr, int num, int deg)
     char *newptr;
 
     i = ft_strlen(arr);
-    newptr = ft_memalloc(ft_strlen(arr) + 1);
+    newptr = ft_memalloc(ft_strlen(arr) + 2);
     ft_strcpy(newptr, arr);
 
     i = 0;
@@ -378,6 +380,7 @@ int     check_zero_inf(t_sun eeei, t_struct *st)
     return (0);
 }
 
+int temp = 40;
 void    after_point(t_sun eeei, t_struct *st)
 {
 //    char *sp;
@@ -405,13 +408,14 @@ void    after_point(t_sun eeei, t_struct *st)
         }
         arr = multiplication(arr, 5, count);
         if (c == SIZE_M)
-            st->sp = sum_reverse(st->sp, arr, st);
+            sum_reverse(st->sp, arr, st);
         if (b == 1)
         {
-            st->sp = sum_reverse(st->sp, arr, st);
-//            printf("sp:%s arr:%s c:%d %d %d\n", sp, arr, c, ft_strlen(sp), ft_strlen(arr));
+            sum_reverse(st->sp, arr, st);
+//            printf("sp:%s arr:%s c:%d %d %d\n", st->sp, arr, c, ft_strlen(st->sp), ft_strlen(arr));
         }
     }
+    ft_memdel(&arr);
 }
 
 void    init_chars(t_struct *st)
@@ -421,6 +425,7 @@ void    init_chars(t_struct *st)
     st->fp = ft_memalloc(st->size);
     st->fp = ft_realloc(st->fp, st->size);
     st->f_zero = 0;
+    st->neg_round = 0;
     st->sign_bit = 0;
     if (st->f_pres == 1)        //надо записать round в структуру
         st->round = st->wdth_pres;  //и удалить такую же операцию  в roundation
