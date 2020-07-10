@@ -288,6 +288,10 @@ void    *multiplication(char *arr, int num, int deg)
         }
         i++;
     }
+
+
+
+
     i = ft_strlen(newptr);
     if (ft_strlen(newptr) < deg)
         newptr = get_zero(newptr);

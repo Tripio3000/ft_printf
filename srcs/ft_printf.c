@@ -125,16 +125,16 @@ int		ft_printf(char *format, ...)
 	return (st->schet);
 }
 
-//int main()
-//{
-//    float a = 1.51111;
-//
-//    int i = ft_printf("%.0f", 4.5);
-// 	printf("\ni = %d\n", i);
-//    int b = printf("%.0f", 4.5);
-//    printf("\nb = %d\n", b);
-//    return 0;
-//}
+int main()
+{
+    float a = 1.51111;
+
+    int i = ft_printf("%.0f", 4.5);
+ 	printf("\ni = %d\n", i);
+    int b = printf("%.0f", 4.5);
+    printf("\nb = %d\n", b);
+    return 0;
+}
 
 
 //    int i = ft_printf("%.7s.", "hello");

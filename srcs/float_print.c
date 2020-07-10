@@ -55,19 +55,10 @@ void    rounding(char *sp, t_struct *st) //округление
 {
     int i;
     int j;
-//    int round;
     char *arr;
 
     j = 0;
     i = ft_strlen(sp);
-//    if (st->f_pres == 1)
-//        round = st->wdth_pres;
-//    else
-//        round = 6;
-//    if (st->round == 0 && sp[st->round] == '5' && st->sign_bit == 1)
-//        st->neg_round = 1;
-//    if (st->round == 0 && sp[st->round] >= '5' && st->neg_round == 0)
-//        rounding_fp(st);
 	if (st->round == 0)
 		zero_round(st);
     if (st->round < i && sp[st->round] >= '5')
@@ -81,12 +72,6 @@ void    rounding(char *sp, t_struct *st) //округление
         }
         sum_reverse(sp, arr, st);
     }
-//    j = 0;
-//    while (j < st->round && j < i)
-//    {
-//        ft_putchar(sp[j]);
-//        j++;
-//    }
 }
 
 void print_float(char *fp, char *sp, t_struct *st, t_sun eeei)
