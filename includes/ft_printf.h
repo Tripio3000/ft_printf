@@ -45,6 +45,7 @@ typedef struct				s_struct{
 	int                     shift;
 	char                    *fp;
 	char                    *sp;
+	char 					*arr;
 	int                     round;
     int						f_zero;
     int                     sign_bit;

@@ -26,7 +26,6 @@ void    *ft_cpy(char *newptr, char *ptr, int size)
     int i;
     int j;
 
-//    write(1, "ok", 2);
     i = 0;
     j = 0;
     while (ptr[i] != '\0')
@@ -47,10 +46,6 @@ void	*ft_realloc(void *ptr, size_t size)
 {
     char	*newptr;
 
-//    if (size == 64)
-//        printf("1\n");
-//    printf("realloc\n");
-//    write(1, "ok", 2);
     if (!size && ptr)
     {
         if (!(newptr = (char *)malloc(1)))
@@ -66,7 +61,6 @@ void	*ft_realloc(void *ptr, size_t size)
         //free(ptr);
         ft_memdel(&ptr);
     }
-//    printf("newptr:%s\n", newptr);
     return (newptr);
 }
 
@@ -96,12 +90,8 @@ void    *sum_char(char *ans, char *tmp)
     int i;
     int j;
     char symb;
-//    char *str;
     char *newptr;
-//    write(1, "ok", 2);
 
-//    str = ft_memalloc(ft_strlen(tmp));
-//    ft_strcpy(str, tmp);
     i = ft_strlen(ans);
     j = ft_strlen(tmp);
     while ((i - 1) == j || j > i)
@@ -127,7 +117,6 @@ void    *sum_char(char *ans, char *tmp)
                 newptr[i + 2] = '\0';
 //                ft_memdel(&str);
                 ft_memdel(&ans);
-//                write(1, "end", 3);
                 return (newptr);
             }
             else
@@ -213,8 +202,6 @@ void    sum_reverse(char *ans, char *tmp, t_struct *st)
         st->sp = ft_realloc(st->sp, (i*2));
         i = ft_strlen(st->sp);
     }
-//    while (i > j && ans[i - 1] == '0')
-//        i--;
     i = 0;
     j = 0;
     while (arr[j] != '\0')
@@ -236,7 +223,6 @@ void    sum_reverse(char *ans, char *tmp, t_struct *st)
     }
     if (k == 0 && st->sp[k] > '9')
         rounding_fp(st);
-//    return (st->sp);
 }
 
 void    *get_zero(char *arr)
@@ -265,10 +251,8 @@ void    *multiplication(char *arr, int num, int deg)
     char symb;
     char *newptr;
 
-    i = ft_strlen(arr);
     newptr = ft_memalloc(ft_strlen(arr) + 2);
     ft_strcpy(newptr, arr);
-
     i = 0;
     while (i < num - 1)
     {
@@ -288,14 +272,8 @@ void    *multiplication(char *arr, int num, int deg)
         }
         i++;
     }
-
-
-
-
-    i = ft_strlen(newptr);
     if (ft_strlen(newptr) < deg)
         newptr = get_zero(newptr);
-//    printf("newptr:%s\n", newptr);
     return (newptr);
 }
 
@@ -384,22 +362,14 @@ int     check_zero_inf(t_sun eeei, t_struct *st)
     return (0);
 }
 
-int temp = 40;
 void    after_point(t_sun eeei, t_struct *st)
 {
-//    char *sp;
-//    int size;
-    char *arr;
     int count;
     int c;
     int b;
 
-//    size = 8;
-    arr = ft_memalloc(2);
-//    sp = ft_memalloc(size);
-//    sp = ft_realloc(sp, size);
-    arr[0] = '1';
-//    printf("sp:%s\n", sp);
+	st->arr = ft_memalloc(2);
+	st->arr[0] = '1';
     count = 0;
     for (c = (SIZE_M - st->shift - 1); c >= 0; c--)
     {
@@ -407,23 +377,23 @@ void    after_point(t_sun eeei, t_struct *st)
         eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
         if (c > SIZE_M)
         {
-            arr = multiplication(arr, 5, count);
+			st->arr = multiplication(st->arr, 5, count);
             continue;
         }
-        arr = multiplication(arr, 5, count);
+		st->arr = multiplication(st->arr, 5, count);
         if (c == SIZE_M)
-            sum_reverse(st->sp, arr, st);
+            sum_reverse(st->sp, st->arr, st);
         if (b == 1)
-        {
-            sum_reverse(st->sp, arr, st);
-//            printf("sp:%s arr:%s c:%d %d %d\n", st->sp, arr, c, ft_strlen(st->sp), ft_strlen(arr));
-        }
+            sum_reverse(st->sp, st->arr, st);
     }
-    ft_memdel(&arr);
+    ft_memdel(&st->arr);
 }
 
 void    init_chars(t_struct *st)
 {
+	st->arr = ft_memalloc(1);
+	st->arr[0] = '1';
+	st->arr[1] = '\0';
     st->sp = ft_memalloc(st->size);
     st->sp = ft_realloc(st->sp, st->size);
     st->fp = ft_memalloc(st->size);
@@ -437,12 +407,36 @@ void    init_chars(t_struct *st)
         st->round = 6;
 }
 
+void 	circle(t_struct *st, t_sun eeei)
+{
+	int c;
+	int b;
+
+	for (c = (SIZE_M - st->shift); c < SIZE_M; c++)
+	{
+		if (c == (SIZE_M - st->shift))
+		{
+			eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
+			if (b == 1 && c > 0)
+				st->fp = sum_char(st->fp, st->arr);
+			continue ;
+		}
+		if (c < 0)
+		{
+			st->arr = two_degree(st->arr);
+			continue ;
+		}
+		eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
+		st->arr = two_degree(st->arr);
+		if (b == 1)
+			st->fp = sum_char(st->fp, st->arr);
+	}
+}
+
 void    bit_parcer(double f, t_struct *st)
 {
     t_sun eeei;
     int c;
-    int b;
-    char *arr;
 
     st->size = 8;
     eeei.f = f;
@@ -452,53 +446,28 @@ void    bit_parcer(double f, t_struct *st)
     c = check_zero_inf(eeei, st);
     if (c == 1)
         return;
-    arr = ft_memalloc(1);
-    arr[0] = '1';
-    arr[1] = '\0';
     st->shift = exp_shift(eeei);
     if (st->shift >= 0)
     {
-        for (c = (SIZE_M - st->shift); c < SIZE_M; c++)
-        {
-            if (c == (SIZE_M - st->shift))
-            {
-                eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
-                if (b == 1 && c > 0)
-                    st->fp = sum_char(st->fp, arr);
-                continue ;
-            }
-            if (c < 0)
-            {
-                arr = two_degree(arr);
-                continue ;
-            }
-            eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
-            arr = two_degree(arr);
-            if (b == 1)
-                st->fp = sum_char(st->fp, arr);
-        }
+    	circle(st, eeei);
         if (st->shift != 0)
-            arr = two_degree(arr);
-        st->fp = sum_char(st->fp, arr);
-
+			st->arr = two_degree(st->arr);
+        st->fp = sum_char(st->fp, st->arr);
         st->fp = get_char(st->fp);
-        ft_memdel(&arr);
+        ft_memdel(&st->arr);
     }
     else
         st->f_zero = 1;
+    after_point(eeei, st);
+    ft_out(st->fp, st->sp, st);
+
+}
 
 //    printf("%d_ %d_ %d  %.32f\n", eeei.v.sign, eeei.v.exp, eeei.v.mant, eeei.f);
 //    printf("shift:%d\n", st->shift);
 //    for (c = (SIZE_M - st->shift); c < SIZE_M; c++)
 //        ft_putchar(eeei.v.mant & (1L << c) ? '1' : '0');
 //    printf("\n");
-
-
-    after_point(eeei, st);
-
-    ft_out(st->fp, st->sp, st);
-
-}
 
 
 
