@@ -132,7 +132,7 @@ void    *sum_char(char *ans, char *tmp)
     return (ans);
 }
 
-void    *two_degree(char *arr)
+void    *two_degree(char *arr, t_struct *st)
 {
     char *tm;
     char *newptr;
@@ -423,11 +423,11 @@ void 	circle(t_struct *st, t_sun eeei)
 		}
 		if (c < 0)
 		{
-			st->arr = two_degree(st->arr);
+			st->arr = two_degree(st->arr, st);
 			continue ;
 		}
 		eeei.v.mant & (1L << c) ? (b = 1) : (b = 0);
-		st->arr = two_degree(st->arr);
+		st->arr = two_degree(st->arr, st);
 		if (b == 1)
 			st->fp = sum_char(st->fp, st->arr);
 	}
@@ -451,7 +451,7 @@ void    bit_parcer(double f, t_struct *st)
     {
     	circle(st, eeei);
         if (st->shift != 0)
-			st->arr = two_degree(st->arr);
+			st->arr = two_degree(st->arr, st);
         st->fp = sum_char(st->fp, st->arr);
         st->fp = get_char(st->fp);
         ft_memdel(&st->arr);
